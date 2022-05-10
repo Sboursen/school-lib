@@ -1,11 +1,22 @@
 # Project title
 
-project description ...
+This a educational project made to practice OOP topics using Ruby.
+
+## Milestones
+
+- Milestone 1: add Person, Student, and Teacher classes.
+- Milestone 2: use the "Decorator" design pattern.
+- Milestone 3: set up associations.
+- Milestone 4: add basic UI.
+- Milestone 5: refactor your code.
+- Milestone 6: preserve data.
+- Milestone 7: unit tests.
 
 ## Getting Started
 
 - Run `bundle install` to get the dependencies.
-- Run `ruby ...`
+- Run `irb` to start interactive Ruby CLI.
+- Load different classes and start playing with them :)
 
 ## About me
 
