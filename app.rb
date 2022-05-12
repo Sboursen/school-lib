@@ -40,6 +40,18 @@ class App
       list_all_people
     when '6'
       list_all_rentals
+    end
+  end
+
+  def create_for_user(user_input)
+    case user_input
+    when '3'
+      create_person
+    when '4'
+      create_book
+    when '5'
+      create_rental
+    end
   end
 
   def run
@@ -47,11 +59,12 @@ class App
     when '1', '2', '6'
       display_for_user(user_input)
     when '3', '4', '5'
-      create_for_user
+      create_for_user(user_input)
     when '7'
+      puts 'Thank you for using this app!'
       exit(true)
     else
-      puts "\nInvalid input \"#{user_input}\" !"
+      puts "\nInvalid input \"#{user_input}\"!"
       puts 'please try with one of these options:'
       print_prompt
       @user_input = gets.chomp
