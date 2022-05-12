@@ -7,10 +7,10 @@ This a educational project made to practice OOP topics using Ruby.
 - [x] Milestone 1: add Person, Student, and Teacher classes.
 - [x] Milestone 2: use the "Decorator" design pattern.
 - [x] Milestone 3: set up associations.
-- [] Milestone 4: add basic UI.
-- [] Milestone 5: refactor your code.
-- [] Milestone 6: preserve data.
-- [] Milestone 7: unit tests.
+- [x] Milestone 4: add basic UI.
+- [ ] Milestone 5: refactor your code.
+- [ ] Milestone 6: preserve data.
+- [ ] Milestone 7: unit tests.
 
 ## Getting Started
 
