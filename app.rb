@@ -112,18 +112,26 @@ class App
     puts 'Book created successfully'
   end
 
+  def list_all_books
+    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"" }
+  end
+
+  def list_all_people
+    @people.each_with_index do |person, index|
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+  end
+
   def read_desired_book
     puts "\nSelect a book from the following list by number"
-    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"" }
-    desired_book = gets.chomp
+    list_all_books
+    desired_book_index = gets.chomp
     (0...@books.length).include?(desired_book_index.to_i) ? desired_book_index.to_i : read_desired_book
   end
 
   def read_desired_person
     puts "\nSelect a person from the following list by number"
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
+    list_all_people
     desired_person_index = gets.chomp
     (0...@people.length).include?(desired_person_index.to_i) ? desired_person_index.to_i : read_desired_person
   end
