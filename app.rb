@@ -21,6 +21,7 @@ class App
 
   def print_prompt
     puts '
+          Please choose an option by entering a number:
           1 | List all books
           2 | List all people
           3 | Create a person
@@ -111,6 +112,41 @@ class App
     puts 'Book created successfully'
   end
 
+  def read_desired_book
+    puts "\nSelect a book from the following list by number"
+    @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\"" }
+    desired_book = gets.chomp
+    (0...@books.length).include?(desired_book_index.to_i) ? desired_book_index.to_i : read_desired_book
+  end
+
+  def read_desired_person
+    puts "\nSelect a person from the following list by number"
+    @people.each_with_index do |person, index|
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+    desired_person_index = gets.chomp
+    (0...@people.length).include?(desired_person_index.to_i) ? desired_person_index.to_i : read_desired_person
+  end
+
+  def read_desired_date
+    print "\nDate:"
+    gets.chomp
+  end
+
+  def create_rental
+    return print 'Please add a book first' if @book.empty?
+    return print 'Please add a person first' if @people.empty?
+
+    book = @books[read_desired_book]
+    person = @people[read_desired_person]
+    date = read_desired_date
+
+    rental = Rental.new(date, person, book)
+
+    @rentals << rental
+    puts 'Rental created successfully'
+  end
+
   def create_for_user(user_input)
     case user_input
     when '3'
@@ -134,20 +170,24 @@ class App
   end
 
   def run
-    case user_input
-    when '1', '2', '6'
-      display_for_user(user_input)
-    when '3', '4', '5'
-      create_for_user(user_input)
-    when '7'
-      puts 'Thank you for using this app!'
-      exit(true)
-    else
-      puts "\nInvalid input \"#{user_input}\"!"
-      puts 'please try with one of these options:'
+    loop do
+      case user_input
+      when '1', '2', '6'
+        display_for_user(user_input)
+      when '3', '4', '5'
+        create_for_user(user_input)
+      when '7'
+        puts 'Thank you for using this app!'
+        exit(true)
+      else
+        puts "\nInvalid input \"#{user_input}\"!"
+        puts 'please try with one of these options:'
+        print_prompt
+        @user_input = gets.chomp
+        run
+      end
       print_prompt
       @user_input = gets.chomp
-      run
     end
   end
 end
