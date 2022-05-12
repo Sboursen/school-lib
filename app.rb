@@ -5,13 +5,14 @@ require 'teacher'
 require 'student'
 require 'book'
 require 'rental'
+require 'utils'
 
 class App
   attr_accessor :user_input
 
   def initialize
     puts 'Welcome to School Library App!'
-    print_prompt
+    Utils.print_prompt
     @user_input = gets.chomp
     @default_classroom = Classroom.new('default-classroom')
     @people = []
@@ -19,59 +20,41 @@ class App
     @rentals = []
   end
 
-  def print_prompt
-    puts '
-          Please choose an option by entering a number:
-          1 | List all books
-          2 | List all people
-          3 | Create a person
-          4 | Create a book
-          5 | Create a rental
-          6 | List all rentals for a given person id
-          7 | Exit'
-    puts ''
-    puts 'Select an option: '
-  end
+  # def print_prompt
+  #   Utils.print_prompt
+  # end
+
+  # def read_name
+  #   Utils.read_name
+  # end
+
+  # def read_age
+  #   Utils.read_age
+  # end
+
+  # def read_permission
+  #   Utils.read_permission
+  # end
+
+  # def read_specialization
+  #   Utils.read_specialization
+  # end
 
   def user_input_valid?(user_input, arr)
     arr.include?(user_input)
   end
 
-  def read_name
-    print 'Name: '
-    name = gets.chomp
-    name.empty? ? read_name : name
-  end
-
-  def read_age
-    print 'Age: '
-    age = gets.chomp.to_i
-    (1..1000).include?(age) ? age : read_age
-  end
-
-  def read_permission
-    print 'Has parent permission? [Y/N]: '
-    permission = gets.chomp
-    %w[Y N].include?(permission.capitalize) ? permission.capitalize : read_permission
-  end
-
-  def read_specialization
-    print 'Specialization: '
-    specialization = gets.chomp
-    specialization.empty? ? read_specialization : specialization
-  end
-
   def student_info
-    age = read_age
-    name = read_name
-    has_parent_permission = read_permission == 'Y'
+    age = Utils.read_age
+    name = Utils.read_name
+    has_parent_permission = Utils.read_permission == 'Y'
     [age, name, has_parent_permission]
   end
 
   def teacher_info
-    age = read_age
-    name = read_name
-    specialization = read_specialization
+    age = Utils.read_age
+    name = Utils.read_name
+    specialization = Utils.read_specialization
     [age, name, specialization]
   end
 
@@ -178,7 +161,9 @@ class App
     if rental_list.empty?
       puts 'No rentals found for this person.'
     else
-      rental_list.each { |rental| puts "Date: #{rental.date}, Book: \"#{rental.book.name}\" by  #{rental.book.author}" }
+      rental_list.each do |rental|
+        puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by  #{rental.book.author}"
+      end
     end
   end
 
@@ -206,11 +191,11 @@ class App
       else
         puts "\nInvalid input \"#{user_input}\"!"
         puts 'please try with one of these options:'
-        print_prompt
+        Utils.print_prompt
         @user_input = gets.chomp
         run
       end
-      print_prompt
+      Utils.print_prompt
       @user_input = gets.chomp
     end
   end
