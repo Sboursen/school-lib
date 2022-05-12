@@ -38,25 +38,25 @@ class App
   end
 
   def read_name
-    print 'Name:'
+    print 'Name: '
     name = gets.chomp
     name.empty? ? read_name : name
   end
 
   def read_age
-    print 'Age:'
+    print 'Age: '
     age = gets.chomp.to_i
-    (1..120).include?(age) ? age : read_age
+    (1..1000).include?(age) ? age : read_age
   end
 
   def read_permission
-    print 'Has parent permission? [Y/N]:'
+    print 'Has parent permission? [Y/N]: '
     permission = gets.chomp
     %w[Y N].include?(permission.capitalize) ? permission.capitalize : read_permission
   end
 
   def read_specialization
-    print 'Specialization:'
+    print 'Specialization: '
     specialization = gets.chomp
     specialization.empty? ? read_specialization : specialization
   end
@@ -76,7 +76,7 @@ class App
   end
 
   def create_person
-    puts "\nDo you want to create a student (1) or a teacher (2)? [Input the number]"
+    print "\nDo you want to create a student (1) or a teacher (2)? [Input the number]: "
     @user_input = gets.chomp
     create_person unless user_input_valid?(user_input, %w[1 2])
 
@@ -93,13 +93,13 @@ class App
   end
 
   def read_title
-    print 'Title:'
+    print 'Title: '
     title = gets.chomp
     title.empty? ? read_title : title
   end
 
   def read_author
-    print 'Author:'
+    print 'Author: '
     author = gets.chomp
     author.empty? ? read_author : author
   end
@@ -137,12 +137,12 @@ class App
   end
 
   def read_desired_date
-    print "\nDate:"
+    print "\nDate: "
     gets.chomp
   end
 
   def create_rental
-    return print 'Please add a book first' if @book.empty?
+    return print 'Please add a book first' if @books.empty?
     return print 'Please add a person first' if @people.empty?
 
     book = @books[read_desired_book]
@@ -166,6 +166,22 @@ class App
     end
   end
 
+  def list_all_rentals_for_id
+    return puts 'Please add a rental first' if @rentals.empty?
+
+    puts "\nSelect a person from the following list by number"
+    @people.each do |person|
+      puts "ID: #{person.id}, [#{person.class}] Name: #{person.name}, Age: #{person.age}"
+    end
+    person_id = gets.chomp.to_i
+    rental_list = @rentals.select { |rental| rental.person.id == person_id }
+    if rental_list.empty?
+      puts 'No rentals found for this person.'
+    else
+      rental_list.each { |rental| puts "Date: #{rental.date}, Book: \"#{rental.book.name}\" by  #{rental.book.author}" }
+    end
+  end
+
   def display_for_user(user_input)
     case user_input
     when '1'
@@ -173,7 +189,7 @@ class App
     when '2'
       list_all_people
     when '6'
-      list_all_rentals
+      list_all_rentals_for_id
     end
   end
 
