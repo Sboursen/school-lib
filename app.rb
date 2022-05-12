@@ -91,6 +91,26 @@ class App
     puts 'Person created successfully'
   end
 
+  def read_title
+    print 'Title:'
+    title = gets.chomp
+    title.empty? ? read_title : title
+  end
+
+  def read_author
+    print 'Author:'
+    author = gets.chomp
+    author.empty? ? read_author : author
+  end
+
+  def create_book
+    title = read_title
+    author = read_author
+    book = Book.new(title, author)
+    @books << book
+    puts 'Book created successfully'
+  end
+
   def create_for_user(user_input)
     case user_input
     when '3'
