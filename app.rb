@@ -161,7 +161,7 @@ class App
   def run
     loop do
       case user_input
-      when '2', '2', '6'
+      when '10', '2', '6'
         display_for_user(user_input)
       when '3', '4', '5'
         create_for_user(user_input)
