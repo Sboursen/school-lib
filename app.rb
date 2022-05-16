@@ -6,13 +6,14 @@ require 'student'
 require 'book'
 require 'rental'
 require 'handle_input'
+require 'display_message'
 
 class App
   attr_accessor :user_input
 
   def initialize
-    puts 'Welcome to School Library App!'
-    HandleInput.print_prompt
+    DisplayMessage.welcome_message
+    HandleInput.main_message
     @user_input = gets.chomp
     @default_classroom = Classroom.new('default-classroom')
     @people = []
@@ -48,7 +49,7 @@ class App
     end
 
     @people << person
-    puts 'Person created successfully'
+    DisplayMessage.success_message(person)
   end
 
   def read_title
@@ -68,7 +69,7 @@ class App
     author = read_author
     book = Book.new(title, author)
     @books << book
-    puts 'Book created successfully'
+    DisplayMessage.success_message(book)
   end
 
   def list_all_books
@@ -111,7 +112,7 @@ class App
     rental = Rental.new(date, person, book)
 
     @rentals << rental
-    puts 'Rental created successfully'
+    DisplayMessage.success_message(rental)
   end
 
   def create_for_user(user_input)
@@ -165,13 +166,12 @@ class App
         puts 'Thank you for using this app!'
         exit(true)
       else
-        puts "\nInvalid input \"#{user_input}\"!"
-        puts 'please try with one of these options:'
-        HandleInput.print_prompt
+        DisplayMessage.invalid_input_message(user_input)
+        HandleInput.main_message
         @user_input = gets.chomp
         run
       end
-      HandleInput.print_prompt
+      HandleInput.main_message
       @user_input = gets.chomp
     end
   end
