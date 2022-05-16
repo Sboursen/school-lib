@@ -22,18 +22,24 @@ module HandleInput
   def self.read_age
     print 'Age: '
     age = gets.chomp.to_i
-    (1..1000).include?(age) ? age : read_age
+    in_array?(age, (1..1000)) ? age : read_age
   end
 
   def self.read_permission
     print 'Has parent permission? [Y/N]: '
     permission = gets.chomp
-    %w[Y N].include?(permission.capitalize) ? permission.capitalize : read_permission
+    in_array?(permission.capitalize, %w[Y N]) ? permission.capitalize : read_permission
   end
 
   def self.read_specialization
     print 'Specialization: '
     specialization = gets.chomp
     specialization.empty? ? read_specialization : specialization
+  end
+
+  def self.in_array?(user_input, arr)
+    result = unless arr.include?(user_input)
+    puts 'Invalid input, try again!' unless result
+    result
   end
 end

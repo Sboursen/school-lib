@@ -5,14 +5,14 @@ require 'teacher'
 require 'student'
 require 'book'
 require 'rental'
-require 'utils'
+require 'handle_input'
 
 class App
   attr_accessor :user_input
 
   def initialize
     puts 'Welcome to School Library App!'
-    Utils.print_prompt
+    HandleInput.print_prompt
     @user_input = gets.chomp
     @default_classroom = Classroom.new('default-classroom')
     @people = []
@@ -20,28 +20,24 @@ class App
     @rentals = []
   end
 
-  def user_input_valid?(user_input, arr)
-    arr.include?(user_input)
-  end
-
   def student_info
-    age = Utils.read_age
-    name = Utils.read_name
-    has_parent_permission = Utils.read_permission == 'Y'
+    age = HandleInput.read_age
+    name = HandleInput.read_name
+    has_parent_permission = HandleInput.read_permission == 'Y'
     [age, name, has_parent_permission]
   end
 
   def teacher_info
-    age = Utils.read_age
-    name = Utils.read_name
-    specialization = Utils.read_specialization
+    age = HandleInput.read_age
+    name = HandleInput.read_name
+    specialization = HandleInput.read_specialization
     [age, name, specialization]
   end
 
   def create_person
     print "\nDo you want to create a student (1) or a teacher (2)? [Input the number]: "
     @user_input = gets.chomp
-    create_person unless user_input_valid?(user_input, %w[1 2])
+    create_person unless HandleInput.in_array?(user_input, %w[1 2])
 
     if @user_input == '1'
       age, name, has_parent_permission = student_info
@@ -171,11 +167,11 @@ class App
       else
         puts "\nInvalid input \"#{user_input}\"!"
         puts 'please try with one of these options:'
-        Utils.print_prompt
+        HandleInput.print_prompt
         @user_input = gets.chomp
         run
       end
-      Utils.print_prompt
+      HandleInput.print_prompt
       @user_input = gets.chomp
     end
   end
