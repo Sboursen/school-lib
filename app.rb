@@ -13,7 +13,7 @@ class App
 
   def initialize
     DisplayMessage.welcome_message
-    HandleInput.main_message
+    DisplayMessage.main_message
     @user_input = gets.chomp
     @default_classroom = Classroom.new('default-classroom')
     @people = []
@@ -72,16 +72,12 @@ class App
 
   def read_desired_book
     puts "\nSelect a book from the following list by number"
-    list_all_books
-    desired_book_index = gets.chomp
-    (0...@books.length).include?(desired_book_index.to_i) ? desired_book_index.to_i : read_desired_book
+    HandleInput.handle_input_based_on_list(method(:list_all_books), @books)
   end
 
   def read_desired_person
     puts "\nSelect a person from the following list by number"
-    list_all_people
-    desired_person_index = gets.chomp
-    (0...@people.length).include?(desired_person_index.to_i) ? desired_person_index.to_i : read_desired_person
+    HandleInput.handle_input_based_on_list(method(:list_all_people), @people)
   end
 
   def create_rental
@@ -150,11 +146,11 @@ class App
         exit(true)
       else
         DisplayMessage.invalid_input_message(user_input)
-        HandleInput.main_message
+        DisplayMessage.main_message
         @user_input = gets.chomp
         run
       end
-      HandleInput.main_message
+      DisplayMessage.main_message
       @user_input = gets.chomp
     end
   end
