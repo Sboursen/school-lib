@@ -38,7 +38,7 @@ module HandleInput
   end
 
   def self.in_array?(user_input, arr)
-    result = unless arr.include?(user_input)
+    result = arr.include?(user_input)
     puts 'Invalid input, try again!' unless result
     result
   end
