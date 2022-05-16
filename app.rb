@@ -7,6 +7,7 @@ require 'book'
 require 'rental'
 require 'handle_input'
 require 'display_message'
+require 'handle_create'
 
 class App
   attr_accessor :user_input
@@ -15,49 +16,9 @@ class App
     DisplayMessage.welcome_message
     DisplayMessage.main_message
     @user_input = gets.chomp
-    @default_classroom = Classroom.new('default-classroom')
     @people = []
     @books = []
     @rentals = []
-  end
-
-  def student_info
-    age = HandleInput.read_age
-    name = HandleInput.read_name
-    has_parent_permission = HandleInput.read_permission == 'Y'
-    [age, name, has_parent_permission]
-  end
-
-  def teacher_info
-    age = HandleInput.read_age
-    name = HandleInput.read_name
-    specialization = HandleInput.read_specialization
-    [age, name, specialization]
-  end
-
-  def create_person
-    print "\nDo you want to create a student (1) or a teacher (2)? [Input the number]: "
-    @user_input = gets.chomp
-    create_person unless HandleInput.in_array?(user_input, %w[1 2])
-
-    if @user_input == '1'
-      age, name, has_parent_permission = student_info
-      person = Student.new(age, @default_classroom, name, parent_permission: has_parent_permission)
-    else
-      age, name, specialization = teacher_info
-      person = Teacher.new(age, specialization, name)
-    end
-
-    @people << person
-    DisplayMessage.success_message(person)
-  end
-
-  def create_book
-    title = HandleInput.read_title
-    author = HandleInput.read_author
-    book = Book.new(title, author)
-    @books << book
-    DisplayMessage.success_message(book)
   end
 
   def list_all_books
@@ -97,9 +58,9 @@ class App
   def create_for_user(user_input)
     case user_input
     when '3'
-      create_person
+      @people = HandleCreate.create_person(@people)
     when '4'
-      create_book
+      @books = HandleCreate.create_book(@books)
     when '5'
       create_rental
     end
