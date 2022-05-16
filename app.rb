@@ -52,21 +52,9 @@ class App
     DisplayMessage.success_message(person)
   end
 
-  def read_title
-    print 'Title: '
-    title = gets.chomp
-    title.empty? ? read_title : title
-  end
-
-  def read_author
-    print 'Author: '
-    author = gets.chomp
-    author.empty? ? read_author : author
-  end
-
   def create_book
-    title = read_title
-    author = read_author
+    title = HandleInput.read_title
+    author = HandleInput.read_author
     book = Book.new(title, author)
     @books << book
     DisplayMessage.success_message(book)
@@ -96,18 +84,13 @@ class App
     (0...@people.length).include?(desired_person_index.to_i) ? desired_person_index.to_i : read_desired_person
   end
 
-  def read_desired_date
-    print "\nDate: "
-    gets.chomp
-  end
-
   def create_rental
     return print 'Please add a book first' if @books.empty?
     return print 'Please add a person first' if @people.empty?
 
     book = @books[read_desired_book]
     person = @people[read_desired_person]
-    date = read_desired_date
+    date = HandleInput.read_desired_date
 
     rental = Rental.new(date, person, book)
 

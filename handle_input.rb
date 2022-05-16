@@ -13,6 +13,23 @@ module HandleInput
     in_array?(age, (1..1000)) ? age : read_age
   end
 
+  def self.read_title
+    print 'Title: '
+    title = gets.chomp
+    title.empty? ? read_title : title
+  end
+
+  def self.read_author
+    print 'Author: '
+    author = gets.chomp
+    author.empty? ? read_author : author
+  end
+
+  def read_desired_date
+    print "\nDate: "
+    gets.chomp
+  end
+
   def self.read_permission
     print 'Has parent permission? [Y/N]: '
     permission = gets.chomp
