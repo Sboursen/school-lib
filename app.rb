@@ -20,26 +20,6 @@ class App
     @rentals = []
   end
 
-  # def print_prompt
-  #   Utils.print_prompt
-  # end
-
-  # def read_name
-  #   Utils.read_name
-  # end
-
-  # def read_age
-  #   Utils.read_age
-  # end
-
-  # def read_permission
-  #   Utils.read_permission
-  # end
-
-  # def read_specialization
-  #   Utils.read_specialization
-  # end
-
   def user_input_valid?(user_input, arr)
     arr.include?(user_input)
   end
