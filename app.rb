@@ -5,94 +5,20 @@ require 'teacher'
 require 'student'
 require 'book'
 require 'rental'
-require 'utils'
+require 'handle_input'
+require 'display_message'
+require 'handle_create'
 
 class App
   attr_accessor :user_input
 
   def initialize
-    puts 'Welcome to School Library App!'
-    Utils.print_prompt
+    DisplayMessage.welcome_message
+    DisplayMessage.main_message
     @user_input = gets.chomp
-    @default_classroom = Classroom.new('default-classroom')
     @people = []
     @books = []
     @rentals = []
-  end
-
-  # def print_prompt
-  #   Utils.print_prompt
-  # end
-
-  # def read_name
-  #   Utils.read_name
-  # end
-
-  # def read_age
-  #   Utils.read_age
-  # end
-
-  # def read_permission
-  #   Utils.read_permission
-  # end
-
-  # def read_specialization
-  #   Utils.read_specialization
-  # end
-
-  def user_input_valid?(user_input, arr)
-    arr.include?(user_input)
-  end
-
-  def student_info
-    age = Utils.read_age
-    name = Utils.read_name
-    has_parent_permission = Utils.read_permission == 'Y'
-    [age, name, has_parent_permission]
-  end
-
-  def teacher_info
-    age = Utils.read_age
-    name = Utils.read_name
-    specialization = Utils.read_specialization
-    [age, name, specialization]
-  end
-
-  def create_person
-    print "\nDo you want to create a student (1) or a teacher (2)? [Input the number]: "
-    @user_input = gets.chomp
-    create_person unless user_input_valid?(user_input, %w[1 2])
-
-    if @user_input == '1'
-      age, name, has_parent_permission = student_info
-      person = Student.new(age, @default_classroom, name, parent_permission: has_parent_permission)
-    else
-      age, name, specialization = teacher_info
-      person = Teacher.new(age, specialization, name)
-    end
-
-    @people << person
-    puts 'Person created successfully'
-  end
-
-  def read_title
-    print 'Title: '
-    title = gets.chomp
-    title.empty? ? read_title : title
-  end
-
-  def read_author
-    print 'Author: '
-    author = gets.chomp
-    author.empty? ? read_author : author
-  end
-
-  def create_book
-    title = read_title
-    author = read_author
-    book = Book.new(title, author)
-    @books << book
-    puts 'Book created successfully'
   end
 
   def list_all_books
@@ -107,21 +33,12 @@ class App
 
   def read_desired_book
     puts "\nSelect a book from the following list by number"
-    list_all_books
-    desired_book_index = gets.chomp
-    (0...@books.length).include?(desired_book_index.to_i) ? desired_book_index.to_i : read_desired_book
+    HandleInput.handle_input_based_on_list(method(:list_all_books), @books)
   end
 
   def read_desired_person
     puts "\nSelect a person from the following list by number"
-    list_all_people
-    desired_person_index = gets.chomp
-    (0...@people.length).include?(desired_person_index.to_i) ? desired_person_index.to_i : read_desired_person
-  end
-
-  def read_desired_date
-    print "\nDate: "
-    gets.chomp
+    HandleInput.handle_input_based_on_list(method(:list_all_people), @people)
   end
 
   def create_rental
@@ -130,20 +47,20 @@ class App
 
     book = @books[read_desired_book]
     person = @people[read_desired_person]
-    date = read_desired_date
+    date = HandleInput.read_desired_date
 
     rental = Rental.new(date, person, book)
 
     @rentals << rental
-    puts 'Rental created successfully'
+    DisplayMessage.success_message(rental)
   end
 
   def create_for_user(user_input)
     case user_input
     when '3'
-      create_person
+      @people = HandleCreate.create_person(@people)
     when '4'
-      create_book
+      @books = HandleCreate.create_book(@books)
     when '5'
       create_rental
     end
@@ -189,21 +106,13 @@ class App
         puts 'Thank you for using this app!'
         exit(true)
       else
-        puts "\nInvalid input \"#{user_input}\"!"
-        puts 'please try with one of these options:'
-        Utils.print_prompt
+        DisplayMessage.invalid_input_message(user_input)
+        DisplayMessage.main_message
         @user_input = gets.chomp
         run
       end
-      Utils.print_prompt
+      DisplayMessage.main_message
       @user_input = gets.chomp
     end
   end
 end
-
-def main
-  app = App.new
-  app.run
-end
-
-main
