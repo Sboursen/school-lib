@@ -36,9 +36,9 @@ class DataStorage
 
   def rentals_from_array(array_of_rentals, books, people)
     array_of_rentals.map do |hash|
-      person = people.find { |p| hash[:person_id] == p.id }
-      book = books.find { |b| hash[:book_id] == b.id }
-      Rental.new(hash[:date], person, book)
+      person = people.find { |p| hash['person_id'] == p.id }
+      book = books.find { |b| hash['book_id'] == b.id }
+      Rental.new(hash['date'], person, book)
     end
   end
 end
