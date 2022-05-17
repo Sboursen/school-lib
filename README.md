@@ -26,6 +26,11 @@ This a educational project made to practice OOP topics using Ruby.
 - Twitter: [@sboursen_dev](https://twitter.com/sboursen_dev)
 - LinkedIn: [@sboursen](https://linkedin.com/in/sboursen)
 
+👤 **Awais Amjed**
+
+- GitHub: [@awais-amjed](https://github.com/awais-amjed)
+- LinkedIn: [@awais-amjed](https://www.linkedin.com/in/awais-amjed/)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
