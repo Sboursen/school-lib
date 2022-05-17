@@ -22,6 +22,6 @@ class Teacher < Person
   end
 
   def self.create_from_hash(hash)
-    Teacher.new(hash[:age], hash[:specialization], hash[:name], id: hash[:id])
+    Teacher.new(hash['age'], hash['specialization'], hash['name'], id: hash['id'])
   end
 end

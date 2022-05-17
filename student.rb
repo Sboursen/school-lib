@@ -31,6 +31,6 @@ class Student < Person
   end
 
   def self.create_from_hash(hash)
-    Student.new(hash[:age], hash[:name], parent_permission: hash[:parent_permission], id: hash[:id])
+    Student.new(hash['age'], hash['name'], parent_permission: hash['parent_permission'], id: hash['id'])
   end
 end
