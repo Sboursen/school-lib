@@ -8,17 +8,22 @@ require 'rental'
 require 'handle_input'
 require 'display_message'
 require 'handle_create'
+require 'data_storage'
 
 class App
   attr_accessor :user_input
 
   def initialize
+    @people_storage = DataStorage.new('people.json')
+    @books_storage = DataStorage.new('books.json')
+    @rentals_storage = DataStorage.new('rentals.json')
+
     DisplayMessage.welcome_message
     DisplayMessage.main_message
     @user_input = gets.chomp
-    @people = []
-    @books = []
-    @rentals = []
+    @people = @people_storage.objects_from_array(@people_storage.read_data)
+    @books = @books_storage.objects_from_array(@books_storage.read_data)
+    @rentals = @rentals_storage.rentals_from_array(@rentals_storage.read_data, @books, @people)
   end
 
   def list_all_books
@@ -95,6 +100,14 @@ class App
     end
   end
 
+  def exit_app
+    @people_storage.write_data(@people_storage.objects_to_hash_array(@people))
+    @books_storage.write_data(@books_storage.objects_to_hash_array(@books))
+    @rentals_storage.write_data(@rentals_storage.objects_to_hash_array(@rentals))
+    puts 'Thank you for using this app!'
+    exit(true)
+  end
+
   def run
     loop do
       case user_input
@@ -103,8 +116,7 @@ class App
       when '3', '4', '5'
         create_for_user(user_input)
       when '7'
-        puts 'Thank you for using this app!'
-        exit(true)
+        exit_app
       else
         DisplayMessage.invalid_input_message(user_input)
         DisplayMessage.main_message

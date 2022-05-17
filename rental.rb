@@ -21,4 +21,12 @@ class Rental
     @book = book
     @book.rentals.push(self) unless @book.rentals.include?(self)
   end
+
+  def to_hash
+    hash = {}
+    hash[:date] = @date
+    hash[:person_id] = @person.id
+    hash[:book_id] = @book.id
+    hash
+  end
 end

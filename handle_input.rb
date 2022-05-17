@@ -52,6 +52,6 @@ module HandleInput
   def self.handle_input_based_on_list(function_call, list)
     function_call.call
     input = gets.chomp
-    in_array?(input.to_i, (0...list.length)) ? input.to_i : handle_input_based_on_list(method(:function_call), list)
+    in_array?(input.to_i, (0...list.length)) ? input.to_i : handle_input_based_on_list(function_call, list)
   end
 end

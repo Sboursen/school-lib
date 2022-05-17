@@ -22,7 +22,7 @@ module HandleCreate
 
     if user_input == '1'
       age, name, has_parent_permission = student_info
-      person = Student.new(age, @default_classroom, name, parent_permission: has_parent_permission)
+      person = Student.new(age, name, @default_classroom, parent_permission: has_parent_permission)
     else
       age, name, specialization = teacher_info
       person = Teacher.new(age, specialization, name)
