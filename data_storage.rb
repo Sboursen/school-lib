@@ -6,7 +6,7 @@ class DataStorage
   end
 
   def read_data
-    return JsonHandler.parse_json(File.read(@file_name)) if File.exist?(@file_name)
+    JsonHandler.parse_json(File.read(@file_name)) if File.exist?(@file_name)
   end
 
   def write_data(data)
