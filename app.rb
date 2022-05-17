@@ -101,7 +101,6 @@ class App
   end
 
   def exit_app
-    puts @people_storage.objects_to_hash_array(@people)
     @people_storage.write_data(@people_storage.objects_to_hash_array(@people))
     @books_storage.write_data(@books_storage.objects_to_hash_array(@books))
     @rentals_storage.write_data(@rentals_storage.objects_to_hash_array(@rentals))

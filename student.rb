@@ -5,7 +5,8 @@ require 'classroom'
 class Student < Person
   attr_reader :classroom
 
-  def initialize(age, name = 'Unknown', classroom = Classroom.new('default_classroom'), parent_permission: true, id: nil)
+  def initialize(age, name = 'Unknown',
+                 classroom = Classroom.new('default_classroom'), parent_permission: true, id: nil)
     super(age, name, parent_permission: parent_permission, id: id)
     @classroom = classroom
     @classroom.students.push(self) unless @classroom.students.include?(self)

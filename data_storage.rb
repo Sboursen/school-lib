@@ -18,17 +18,18 @@ class DataStorage
   end
 
   def objects_to_hash_array(array_of_objects)
-    array_of_objects.map { |object| object.to_hash }
+    array_of_objects.map(&:to_hash)
   end
 
   def objects_from_array(array_of_hashes)
     array_of_hashes.map do |hash|
       class_name = hash['class']
-      if class_name == 'Student'
+      case class_name
+      when 'Student'
         Student.create_from_hash(hash)
-      elsif class_name == 'Teacher'
+      when 'Teacher'
         Teacher.create_from_hash(hash)
-      elsif class_name == 'Book'
+      when 'Book'
         Book.create_from_hash(hash)
       end
     end
