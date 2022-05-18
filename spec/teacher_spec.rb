@@ -17,7 +17,7 @@ describe Teacher do
   end
 
   before :each do
-    @teacher = Teacher.new(17, 'Teaching','Jeff')
+    @teacher = Teacher.new(17, 'Teaching', 'Jeff')
   end
 
   context 'Given a Teacher' do
@@ -50,4 +50,3 @@ describe Teacher do
     end
   end
 end
-

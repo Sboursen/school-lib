@@ -3,8 +3,8 @@ require_relative '../rental'
 require_relative '../student'
 
 describe Book do
-  context "Given title and author" do
-    it "creates a new book with the correct parameters" do
+  context 'Given title and author' do
+    it 'creates a new book with the correct parameters' do
       title = 'my book'
       author = 'Soufiane'
 
@@ -21,9 +21,8 @@ describe Book do
     @book = Book.new('my book', 'Soufiane')
   end
 
-  context "given a rental object" do
-    
-    it "adds the rental object to the rentals list " do
+  context 'given a rental object' do
+    it 'adds the rental object to the rentals list ' do
       student = Student.new(18)
       tmp_book = Book.new('not my book', 'Soufiane')
       rental = Rental.new('18/05/2022', student, tmp_book)
@@ -34,7 +33,7 @@ describe Book do
       expect(@book.rentals.first).to equal(rental)
     end
 
-    it "adds multiple rental objects to the rentals list" do
+    it 'adds multiple rental objects to the rentals list' do
       student = Student.new(18)
       tmp_book = Book.new('not my book', 'Soufiane')
       rental1 = Rental.new('18/05/2022', student, tmp_book)
@@ -50,21 +49,20 @@ describe Book do
     end
   end
 
-  context "Given a book object" do
-    it "generate a hash representation from it" do
-
+  context 'Given a book object' do
+    it 'generate a hash representation from it' do
       hash = @book.to_hash
 
-      expect(hash['class'.to_sym]).to eql(@book.class)
-      expect(hash['title'.to_sym]).to eql(@book.title)
-      expect(hash['author'.to_sym]).to eql(@book.author)
-      expect(hash['id'.to_sym]).to eql(@book.id)
+      expect(hash[:class]).to eql(@book.class)
+      expect(hash[:title]).to eql(@book.title)
+      expect(hash[:author]).to eql(@book.author)
+      expect(hash[:id]).to eql(@book.id)
     end
   end
 
-  context "Given a hash representation" do
-    it "generate a book object from it" do
-      hash = {'class'=>Book, 'title'=>"my book", 'author'=>"Soufiane", 'id'=>423}
+  context 'Given a hash representation' do
+    it 'generate a book object from it' do
+      hash = { 'class' => Book, 'title' => 'my book', 'author' => 'Soufiane', 'id' => 423 }
 
       book = Book.create_from_hash(hash)
 
