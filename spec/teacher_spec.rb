@@ -30,7 +30,6 @@ describe Teacher do
     it 'generate a hash representation from it' do
       hash = @teacher.to_hash
 
-      puts hash
       expect(hash[:class]).to eql(@teacher.class)
       expect(hash[:age]).to eql(@teacher.age)
       expect(hash[:name]).to eql(@teacher.name)
