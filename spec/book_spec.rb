@@ -54,7 +54,6 @@ describe Book do
     it "generate a hash representation from it" do
 
       hash = @book.to_hash
-      puts hash
 
       expect(hash['class'.to_sym]).to eql(@book.class)
       expect(hash['title'.to_sym]).to eql(@book.title)
