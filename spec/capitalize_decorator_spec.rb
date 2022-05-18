@@ -1,14 +1,15 @@
-require_relative '../base_decorator'
 require_relative '../nameable'
+require_relative '../person'
+require_relative '../capitalize_decorator'
 
-describe BaseDecorator do
+describe CapitalizeDecorator do
   context "Given a nameable" do
-    it "creates a BaseDecorator with the correct parameters" do
+    it "creates a CapitalizeDecorator with the correct parameters" do
       nameable = Nameable.new
 
-      base_decorator = BaseDecorator.new(nameable)
+      capitalize_decorator = CapitalizeDecorator.new(nameable)
 
-      expect(base_decorator.nameable).to equal(nameable)
+      expect(capitalize_decorator.nameable).to equal(nameable)
 
     end
 
@@ -16,10 +17,21 @@ describe BaseDecorator do
       nameable = Nameable.new
       new_nameable = Nameable.new
 
-      base_decorator = BaseDecorator.new(nameable)
-      base_decorator.nameable = new_nameable
+      capitalize_decorator = CapitalizeDecorator.new(nameable)
+      capitalize_decorator.nameable = new_nameable
 
-      expect(base_decorator.nameable).to equal(new_nameable)
+      expect(capitalize_decorator.nameable).to equal(new_nameable)
+
+    end
+  end
+
+  context "Given a person" do
+    it "return a the name of the person capitalized " do
+      person = Person.new(13, 'tarik')
+
+      capitalize_decorator = CapitalizeDecorator.new(person)
+
+      expect(capitalize_decorator.correct_name).to eql(person.name.capitalize)
 
     end
   end
